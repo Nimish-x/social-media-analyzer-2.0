@@ -1,86 +1,141 @@
-# 🌿 Social Leaf Insights
+<div align="center">
+  <img src="frontend/public/leaf-favicon.svg" alt="Social Leaf Logo" width="120" />
 
-> An AI-powered social media analysis and content creation platform with viral hook detection, an immersive voice coach, and cross-platform analytics to help creators grow faster.
+  # Social Leaf Insights
 
-![Frontend](https://img.shields.io/badge/frontend-React%20%2B%20Vite%20%2B%20Tailwind-61DAFB)
-![Backend](https://img.shields.io/badge/backend-FastAPI-009688)
-![Auth](https://img.shields.io/badge/auth-Supabase-3FCF8E)
-![AI](https://img.shields.io/badge/AI-Gemini%20%26%20pyttsx3-FF3366)
+  **An Enterprise-Grade Social Media Intelligence & AI Coaching Platform** <br>
+  *Built with React 18, FastAPI, Supabase, and Multi-Modal AI Agents.*
 
-## ✨ Core Features
+  [![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite-61DAFB?logo=react&logoColor=black)](#frontend)
+  [![Backend](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python%203.11-009688?logo=fastapi&logoColor=white)](#backend)
+  [![Auth](https://img.shields.io/badge/Auth_&_DB-Supabase%20%7C%20PostgreSQL-3FCF8E?logo=supabase&logoColor=black)](#database--authentication)
+  [![AI](https://img.shields.io/badge/AI-Gemini%201.5%20%7C%20VLM-FF3366?logo=google-gemini&logoColor=white)](#ai--ml-infrastructure)
 
-- **🎯 Hook Detector (VLM)** - Uses advanced AI vision models to analyze your video frames, finding the exact scroll-stopping moments to boost retention.
-- **🎙️ AI Voice Coach** - Instantly analyzes your script, offers retention-boosting feedback out-loud, and dynamically guides you using local voice synthesis (via `pyttsx3`).
-- **📊 Cross-Platform Analytics** - Deep insights and performance metrics across your social media platforms in a beautifully designed, 100% responsive dashboard.
-- **🔍 Competitor Spyglass** - Benchmark your channel against competitors using real-time API data and smart caching.
-- **📈 Trend Analysis** - Discover emerging niches, topics, and styles before they go mainstream.
-- **📄 Pro PDF Reporting** - Export beautiful, data-rich reports directly from the dashboard to share with sponsors or teams.
-- **💳 Tiered Access** - Built-in secure authentication (Supabase) and role-based feature gating for Starter, Professional, and Business users.
+</div>
 
-## 🚀 Quick Start Guide
+<br/>
 
-### Prerequisites
-- **Node.js** 18+ 
-- **Python** 3.10+
-- **Git**
-- **Supabase** Free Tier Account
+Social Leaf Insights is a robust, full-stack application engineered to provide creators and agencies with deep analytical insights and AI-driven content coaching. It bridges the gap between raw social media metrics and actionable content strategies through advanced data aggregation, machine learning capabilities, and real-time processing.
 
-### 1. Clone & Setup Supabase
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/KaranTulsani/social-leaf-insights.git
-   cd social-leaf-insights
-   ```
-2. Create a project at [supabase.com](https://supabase.com).
-3. Run the SQL migration using the provided `backend/supabase/profiles.sql`.
-4. Copy your **URL** and **Anon Key**.
+---
 
-### 2. Backend Installation (FastAPI)
+## ⚡ Core Architecture & Engineering Highlights
+
+### 🧠 Advanced AI & Multi-Modal Capabilities
+*   **VLM Hook Detection System**: Utilizes OpenRouter's vision-language models to perform frame-by-frame analysis of short-form video content, pinpointing psychological "hooks" to optimize viewer retention curves.
+*   **Interactive Voice Coaching (pyttsx3)**: Features a locally synthesized, dynamically adapting voice agent that analyzes script semantics and delivers out-loud, pacing-aware feedback on content structure.
+*   **Intelligent Trend Forecasting**: Leverages Google Gemini 1.5 to process large datasets of competitor metadata, identifying sentiment shifts and emerging algorithmic content patterns.
+
+### 🔌 Powerful Data & Analytics Infrastructure
+*   **Cross-Platform Aggregation**: Unified API architecture standardizing data from YouTube (Data API v3) and Instagram (Graph API patterns), complete with proactive rate-limiting and intelligent caching layers.
+*   **Competitor Spyglass Dashboard**: Real-time benchmarking tools providing comparative velocity metrics, graphical performance overlays, and tag analysis against industry rivals.
+*   **Automated Pro PDF Reporting**: Client-side document generation using highly customized `jspdf` and `html2canvas` pipelines for pixel-perfect, exportable executive summaries.
+
+### 🛡️ Enterprise-Ready Security & Auth
+*   **Row-Level Security (RLS)**: Enforced database isolation ensuring multi-tenant data privacy across different connected social accounts.
+*   **RBAC Tiered Gating**: Automated middleware authorization handling complex feature-flagging for Starter, Professional, and Business tiers.
+
+---
+
+## �️ Comprehensive Technology Stack
+
+### Frontend Ecosystem
+*   **Core**: React 18, TypeScript, Vite
+*   **State & Fetching**: React Query (@tanstack/react-query), Zustand (Implicit via context)
+*   **Styling & UI**: TailwindCSS, Shadcn/UI, Radix UI Primitives, Lucide Icons
+*   **Animation**: Framer Motion
+*   **Routing**: React Router DOM v6
+*   **Forms & Validation**: Hook Form, Zod
+
+### Backend Ecosystem
+*   **Framework**: Python 3.10+, FastAPI, Uvicorn (ASGI Server)
+*   **Data Processing**: Pandas, NumPy, OpenCV (Headless)
+*   **External Communications**: HTTPX (Asynchronous HTTP requests)
+*   **Security**: python-jose, passlib, bcrypt
+*   **Background Tasks**: APScheduler
+
+### Database & Authentication
+*   **Provider**: Supabase
+*   **Database**: PostgreSQL
+*   **Security**: JWT tokens, OAuth providers
+
+### AI & ML Infrastructure
+*   **LLMs**: Google Gemini 1.5 Pro/Flash
+*   **Vision Model**: Qwen-VL (via OpenRouter integration)
+*   **TTS Simulation**: pyttsx3 (local subprocess execution for zero-latency TTS)
+
+---
+
+## 🚀 Development Setup & Deployment
+
+### Prerequisites Installation
+Ensure you have Node.js (v18+) and Python (v3.10+) installed on your machine.
+A free-tier Supabase project is required for authentication and database services.
+
+### 1. Supabase Initialization
+1.  Navigate to your Supabase project dashboard.
+2.  Execute the migration script located at `backend/supabase/profiles.sql` in the SQL Editor.
+3.  Secure your `URL` and `Anon Key`. Disable "Confirm Email" in Auth providers for local development ease.
+
+### 2. Backend Environment (FastAPI)
+Initialize the Python virtual environment and install dependencies.
+
 ```bash
 cd backend
 python -m venv venv
-# Activate the venv (Mac/Linux: `source venv/bin/activate`, Windows: `venv\Scripts\activate`)
-pip install -r requirements.txt
 
-# Copy example env
+# Target environment activation
+source venv/bin/activate  # UNIX Systems
+venv\Scripts\activate     # Windows Systems
+
+pip install -r requirements.txt
 cp .env.example .env
 ```
-*(Configure `.env` using your API Keys. Do NOT share your `.env` file publicly!)*
+*Action Required: Populate the newly created `backend/.env` file with your specific API credentials (OpenRouter, Gemini, YouTube, etc).*
 
-### 3. Frontend Installation (React/Vite)
+### 3. Frontend Environment (React/Vite)
+Initialize the Node modules and establish environment variables.
+
 ```bash
 cd frontend
 npm install
 
-# Create local environment config
-echo "VITE_SUPABASE_URL=your-supabase-url" > .env
-echo "VITE_SUPABASE_ANON_KEY=your-anon-key" >> .env
+# Generate environment configurations
+echo "VITE_SUPABASE_URL=<YOUR_URL>" > .env
+echo "VITE_SUPABASE_ANON_KEY=<YOUR_ANON_KEY>" >> .env
 echo "VITE_API_URL=http://localhost:8000" >> .env
 ```
 
-### 4. Fire It Up 🔥
+### 4. Running the Stack
+The application utilizes a decoupled architecture. Both servers must run concurrently.
 
-Run the **backend** (Terminal 1):
+**Terminal A (ASGI Backend):**
 ```bash
 cd backend
-# With virtual environment activated
+source venv/bin/activate
 uvicorn app.main:app --reload --port 8000
 ```
 
-Run the **frontend** (Terminal 2):
+**Terminal B (Vite Frontend):**
 ```bash
 cd frontend
 npm run dev
 ```
-Open **http://localhost:8080** and start analyzing!
+Navigate to `http://localhost:8080` to access the hot-reloaded development environment.
 
-## 🛠️ Technology Stack
-- **Frontend GUI**: React 18, TypeScript, Vite, TailwindCSS, Shadcn/UI, Framer Motion
-- **Backend API**: Python FastAPI, Uvicorn, OpenCV (for frame data)
-- **Database & Auth**: Supabase (PostgreSQL), JWT, Row Level Security (RLS)
-- **Intelligence**: Google Gemini 1.5, OpenRouter VLM, local `pyttsx3` for lightning-fast voice generation.
+<<<<<<< HEAD
 
-## 🔒 Security Note
-**Never push your `.env` files.** The repo is properly configured to ignore local `.env` variables to keep API keys for Gemini, OpenRouter, and Supabase safe. Use the provided `.env.example` to know what keys you need.
+=======
+---
 
+## 🔒 Security Best Practices
 
+This repository incorporates strict `.gitignore` matrices tailored for cloud-native deployment. 
+**Never commit `.env` files to version control.** Secrets scanning tools will temporarily suspend the repository if production keys (e.g., Stripe, Supabase Service Roles) are detected in untracked blobs.
+
+---
+
+<div align="center">
+  <i>Architected and Maintained by Karan Tulsani</i>
+</div>
+>>>>>>> 3eccc68 (docs: overhaul README with enterprise-grade tech stack details)
