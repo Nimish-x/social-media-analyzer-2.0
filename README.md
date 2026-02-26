@@ -123,9 +123,6 @@ npm run dev
 ```
 Navigate to `http://localhost:8080` to access the hot-reloaded development environment.
 
-<<<<<<< HEAD
-
-=======
 ---
 
 ## 🔒 Security Best Practices
@@ -135,7 +132,3 @@ This repository incorporates strict `.gitignore` matrices tailored for cloud-nat
 
 ---
 
-<div align="center">
-  <i>Architected and Maintained by Karan Tulsani</i>
-</div>
->>>>>>> 3eccc68 (docs: overhaul README with enterprise-grade tech stack details)
