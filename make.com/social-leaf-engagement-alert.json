@@ -1,0 +1,110 @@
+{
+  "name": "Social Leaf - Engagement Alert",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {
+        "hook": "socialleaf_webhook"
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        },
+        "restore": {
+          "parameters": {
+            "hook": {
+              "label": "Social Leaf Webhook"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicFilter",
+      "version": 1,
+      "parameters": {},
+      "filter": {
+        "name": "High Engagement",
+        "conditions": [
+          [
+            {
+              "a": "{{1.engagement_rate}}",
+              "b": "10",
+              "o": "number:greater"
+            }
+          ]
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "slack:createAMessage",
+      "version": 2,
+      "parameters": {
+        "channelId": "YOUR_ALERTS_CHANNEL"
+      },
+      "mapper": {
+        "text": "🔥 *High Engagement Alert!*\n\nPlatform: {{1.platform}}\nContent: {{1.content_title}}\nEngagement Rate: {{1.engagement_rate}}%\n\n_This is performing above average!_"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 4,
+      "module": "discord:createAMessage",
+      "version": 1,
+      "parameters": {
+        "webhookUrl": "YOUR_DISCORD_WEBHOOK"
+      },
+      "mapper": {
+        "content": "🔥 **High Engagement Alert!**\n\nPlatform: {{1.platform}}\nContent: {{1.content_title}}\nEngagement Rate: {{1.engagement_rate}}%"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 150
+        }
+      }
+    },
+    {
+      "id": 5,
+      "module": "email:ActionSendEmail",
+      "version": 2,
+      "parameters": {
+        "to": "YOUR_EMAIL",
+        "subject": "🔥 Social Leaf: High Engagement Alert",
+        "content": "<h2>High Engagement Detected!</h2><p>Platform: {{1.platform}}</p><p>Content: {{1.content_title}}</p><p>Engagement Rate: <strong>{{1.engagement_rate}}%</strong></p>",
+        "contentType": "text/html"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 300
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true
+    }
+  }
+}

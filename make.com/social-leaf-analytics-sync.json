@@ -1,0 +1,338 @@
+{
+  "name": "Social Leaf - Auto Sync Analytics",
+  "flow": [
+    {
+      "id": 1,
+      "module": "builtin:BasicTrigger",
+      "version": 1,
+      "parameters": {
+        "time": "{{formatDate(now; 'HH:mm')}}",
+        "timezone": "Asia/Kolkata"
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        },
+        "restore": {},
+        "expects": [
+          {
+            "name": "time",
+            "type": "time",
+            "label": "Time"
+          }
+        ],
+        "scheduler": {
+          "type": "indefinitely",
+          "interval": 360
+        }
+      },
+      "trigger": {
+        "type": "schedule",
+        "interval": 360
+      }
+    },
+    {
+      "id": 2,
+      "module": "http:ActionSendData",
+      "version": 3,
+      "parameters": {},
+      "mapper": {
+        "url": "http://localhost:8000/api/real/all",
+        "method": "GET",
+        "headers": [],
+        "qs": []
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        },
+        "restore": {},
+        "expect": [
+          {
+            "name": "url",
+            "type": "text",
+            "label": "URL"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "parameters": {
+        "routes": [
+          {
+            "flow": [
+              4,
+              8
+            ],
+            "label": "YouTube Connected"
+          },
+          {
+            "flow": [
+              5,
+              9
+            ],
+            "label": "Instagram Connected"
+          },
+          {
+            "flow": [
+              6,
+              10
+            ],
+            "label": "Twitter Connected"
+          },
+          {
+            "flow": [
+              7,
+              11
+            ],
+            "label": "LinkedIn Connected"
+          }
+        ]
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 4,
+      "module": "builtin:BasicFilter",
+      "version": 1,
+      "parameters": {},
+      "filter": {
+        "name": "YouTube Connected",
+        "conditions": [
+          [
+            {
+              "a": "{{2.data.youtube.connected}}",
+              "b": "true",
+              "o": "equal"
+            }
+          ]
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": -150
+        }
+      }
+    },
+    {
+      "id": 5,
+      "module": "builtin:BasicFilter",
+      "version": 1,
+      "parameters": {},
+      "filter": {
+        "name": "Instagram Connected",
+        "conditions": [
+          [
+            {
+              "a": "{{2.data.instagram.connected}}",
+              "b": "true",
+              "o": "equal"
+            }
+          ]
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": -50
+        }
+      }
+    },
+    {
+      "id": 6,
+      "module": "builtin:BasicFilter",
+      "version": 1,
+      "parameters": {},
+      "filter": {
+        "name": "Twitter Connected",
+        "conditions": [
+          [
+            {
+              "a": "{{2.data.twitter.connected}}",
+              "b": "true",
+              "o": "equal"
+            }
+          ]
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 50
+        }
+      }
+    },
+    {
+      "id": 7,
+      "module": "builtin:BasicFilter",
+      "version": 1,
+      "parameters": {},
+      "filter": {
+        "name": "LinkedIn Connected",
+        "conditions": [
+          [
+            {
+              "a": "{{2.data.linkedin.connected}}",
+              "b": "true",
+              "o": "equal"
+            }
+          ]
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 150
+        }
+      }
+    },
+    {
+      "id": 8,
+      "module": "google-sheets:addRow",
+      "version": 2,
+      "parameters": {
+        "spreadsheetId": "YOUR_SPREADSHEET_ID",
+        "sheetName": "YouTube Analytics",
+        "insertDataOption": "INSERT_ROWS"
+      },
+      "mapper": {
+        "values": [
+          "{{formatDate(now; 'YYYY-MM-DD HH:mm')}}",
+          "{{2.data.youtube.metrics.subscribers}}",
+          "{{2.data.youtube.metrics.total_views}}",
+          "{{2.data.youtube.metrics.video_count}}",
+          "{{2.data.youtube.metrics.engagement_rate}}"
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": -150
+        },
+        "restore": {}
+      }
+    },
+    {
+      "id": 9,
+      "module": "google-sheets:addRow",
+      "version": 2,
+      "parameters": {
+        "spreadsheetId": "YOUR_SPREADSHEET_ID",
+        "sheetName": "Instagram Analytics",
+        "insertDataOption": "INSERT_ROWS"
+      },
+      "mapper": {
+        "values": [
+          "{{formatDate(now; 'YYYY-MM-DD HH:mm')}}",
+          "{{2.data.instagram.metrics.followers}}",
+          "{{2.data.instagram.metrics.posts}}",
+          "{{2.data.instagram.metrics.reach}}",
+          "{{2.data.instagram.metrics.impressions}}"
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": -50
+        }
+      }
+    },
+    {
+      "id": 10,
+      "module": "google-sheets:addRow",
+      "version": 2,
+      "parameters": {
+        "spreadsheetId": "YOUR_SPREADSHEET_ID",
+        "sheetName": "Twitter Analytics",
+        "insertDataOption": "INSERT_ROWS"
+      },
+      "mapper": {
+        "values": [
+          "{{formatDate(now; 'YYYY-MM-DD HH:mm')}}",
+          "{{2.data.twitter.metrics.followers}}",
+          "{{2.data.twitter.metrics.tweets}}",
+          "{{2.data.twitter.metrics.engagement_rate}}",
+          "{{2.data.twitter.metrics.recent_impressions}}"
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 50
+        }
+      }
+    },
+    {
+      "id": 11,
+      "module": "google-sheets:addRow",
+      "version": 2,
+      "parameters": {
+        "spreadsheetId": "YOUR_SPREADSHEET_ID",
+        "sheetName": "LinkedIn Analytics",
+        "insertDataOption": "INSERT_ROWS"
+      },
+      "mapper": {
+        "values": [
+          "{{formatDate(now; 'YYYY-MM-DD HH:mm')}}",
+          "{{2.data.linkedin.metrics.connections}}",
+          "{{2.data.linkedin.metrics.post_impressions}}",
+          "{{2.data.linkedin.metrics.profile_views}}"
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 150
+        }
+      }
+    },
+    {
+      "id": 12,
+      "module": "slack:createAMessage",
+      "version": 2,
+      "parameters": {
+        "channelId": "YOUR_CHANNEL_ID"
+      },
+      "mapper": {
+        "text": "📊 *Social Leaf Analytics Update*\n\n*YouTube*: {{2.data.youtube.metrics.subscribers}} subscribers\n*Instagram*: {{2.data.instagram.metrics.followers}} followers\n*Twitter*: {{2.data.twitter.metrics.followers}} followers\n*LinkedIn*: {{2.data.linkedin.metrics.connections}} connections\n\n_Updated: {{formatDate(now; 'MMM D, YYYY h:mm A')}}_"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1500,
+          "y": 0
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    }
+  }
+}

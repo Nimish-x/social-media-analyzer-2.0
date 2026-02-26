@@ -1,0 +1,36 @@
+# Social Leaf Backend Dependencies
+
+# Web Framework
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Database
+supabase>=2.3.0
+
+# HTTP Client
+httpx>=0.26.0
+
+# Authentication
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+
+# Data Processing
+pandas>=2.1.0
+numpy>=1.26.0
+python-multipart>=0.0.6
+
+# Scheduling
+apscheduler>=3.10.0
+
+# Video Processing
+opencv-python-headless>=4.8.0
+Pillow>=10.0.0
+
+# AI Services
+google-generativeai>=0.3.0  # Gemini (fallback for vision)
+openai>=1.0.0
+stripe>=6.0.0
+pyttsx3>=2.90
