@@ -83,5 +83,4 @@ Open **http://localhost:8080** and start analyzing!
 ## 🔒 Security Note
 **Never push your `.env` files.** The repo is properly configured to ignore local `.env` variables to keep API keys for Gemini, OpenRouter, and Supabase safe. Use the provided `.env.example` to know what keys you need.
 
----
-Built to help creators thrive. By [@KaranTulsani](https://github.com/KaranTulsani).
+
